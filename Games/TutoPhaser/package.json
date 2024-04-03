@@ -1,6 +1,6 @@
 {
-    "name": "@proto-games/tic-tac-toe",
-    "description": "A Tic-tac-toe game built with Phaser 3, Vue 3, and TypeScript.",
+    "name": "@proto-games/tuto-phaser",
+    "description": "The tuto phaser converted in vue3 with typescript and vite",
     "version": "0.0.1",
     "repository": {
         "type": "git",
