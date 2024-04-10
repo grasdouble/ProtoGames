@@ -2,7 +2,8 @@ import { EventBus } from "../EventBus";
 import Phaser, { Scene } from "phaser";
 import Sprite = Phaser.Physics.Arcade.Sprite;
 import Tile = Phaser.Tilemaps.Tile;
-import type GameObjectWithBody = Phaser.Types.Physics.Arcade.GameObjectWithBody;
+
+type GameObjectWithBody = Phaser.Types.Physics.Arcade.GameObjectWithBody;
 
 export class Game extends Scene {
     private player!: Phaser.Physics.Arcade.Sprite;
@@ -19,9 +20,11 @@ export class Game extends Scene {
     }
 
     create(): void {
+        this.gameOver = false;
+
         this.add.image(400, 300, "sky");
 
-        //  The platforms group contains the ground and the 2 ledges we can jump on
+        //  The platforms group contains the ground and the 2 ledges we can jump ons
         this.platforms = this.physics.add.staticGroup();
 
         //  Here we create the ground.
@@ -137,6 +140,7 @@ export class Game extends Scene {
         player.setTint(0xff0000);
         player.anims.play("turn");
         this.gameOver = true;
+        this.changeScene();
     }
 
     private collectStar(player: GameObjectWithBody | Tile, star: GameObjectWithBody | Tile): void {
