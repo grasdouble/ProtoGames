@@ -176,7 +176,7 @@ export class Game extends Scene {
         player.setTint(0xff0000);
         player.anims.play("turn");
         this.gameOver = true;
-        this.changeScene();
+        this.changeScene("GameOver");
     }
 
     private collectStar(player: GameObjectWithBody | Tile, star: GameObjectWithBody | Tile): void {
@@ -216,7 +216,11 @@ export class Game extends Scene {
         }
     }
 
-    changeScene() {
-        this.scene.start("Boot");
+    changeScene(scene?: string) {
+        if (scene) {
+            this.scene.start(scene);
+        } else {
+            this.scene.start("Boot");
+        }
     }
 }
