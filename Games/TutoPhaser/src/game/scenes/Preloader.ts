@@ -26,7 +26,21 @@ export class Preloader extends Scene {
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath("assets");
 
-        this.load.image("sky", "sky.png");
+        this.load.image("sky", "bg2.png");
+        this.load.image("forest_00", "Forest/Layer_0000.png");
+        this.load.image("forest_01", "Forest/Layer_0001.png");
+        this.load.image("forest_02", "Forest/Layer_0002.png");
+        this.load.image("forest_03", "Forest/Layer_0003.png");
+        this.load.image("forest_04", "Forest/Layer_0004.png");
+        this.load.image("forest_05", "Forest/Layer_0005.png");
+        this.load.image("forest_06", "Forest/Layer_0006.png");
+        this.load.image("forest_07", "Forest/Layer_0007.png");
+        this.load.image("forest_08", "Forest/Layer_0008.png");
+        this.load.image("forest_09", "Forest/Layer_0009.png");
+        this.load.image("forest_10", "Forest/Layer_0010.png");
+        this.load.image("forest_11", "Forest/Layer_0011.png");
+        this.load.image("woodPlatform", "Wood_15-128x128.png");
+
         this.load.image("ground", "platform.png");
         this.load.image("star", "star.png");
         this.load.image("bomb", "bomb.png");

@@ -22,19 +22,36 @@ export class Game extends Scene {
     create(): void {
         this.gameOver = false;
 
-        this.add.image(400, 300, "sky");
+        this.add.image(0, 0, "forest_11").setScale(1.75);
+        this.add.image(0, 0, "forest_10").setScale(1.75);
+        this.add.image(0, 0, "forest_09").setScale(1.75);
+        this.add.image(0, 0, "forest_08").setScale(1.75);
+        this.add.image(0, 0, "forest_07").setScale(1.75);
+        this.add.image(0, 0, "forest_06").setScale(1.75);
+        this.add.image(0, 0, "forest_05").setScale(1.75);
+        this.add.image(0, 0, "forest_04").setScale(1.75);
+        this.add.image(0, 0, "forest_03").setScale(1.75);
+        this.add.image(0, 0, "forest_02").setScale(1.75);
+        this.add.image(0, 0, "forest_01").setScale(1.75);
+        this.add.image(0, 0, "forest_00").setScale(1.75);
+
+        // Main platform sprite
+        this.add.tileSprite(400, 568, 800, 32, "woodPlatform");
+        // Additional platforms
+        this.add.tileSprite(600, 400, 400, 32, "woodPlatform");
+        this.add.tileSprite(50, 250, 400, 32, "woodPlatform");
+        this.add.tileSprite(750, 220, 400, 32, "woodPlatform");
 
         //  The platforms group contains the ground and the 2 ledges we can jump ons
         this.platforms = this.physics.add.staticGroup();
 
         //  Here we create the ground.
-        //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-        this.platforms.create(400, 568, "ground").setScale(2).refreshBody();
+        this.platforms.create(400, 568, undefined).setSize(800, 32).setVisible(false);
 
         //  Now let's create some ledges
-        this.platforms.create(600, 400, "ground");
-        this.platforms.create(50, 250, "ground");
-        this.platforms.create(750, 220, "ground");
+        this.platforms.create(600, 400, undefined).setSize(400, 32).setVisible(false);
+        this.platforms.create(50, 250, undefined).setSize(400, 32).setVisible(false);
+        this.platforms.create(750, 220, undefined).setSize(400, 32).setVisible(false);
 
         // The player and its settings
         this.player = this.physics.add.sprite(100, 450, "dude");
@@ -92,13 +109,32 @@ export class Game extends Scene {
         //  The score
         this.scoreText = this.add.text(16, 16, "score: 0", {
             fontSize: "32px",
-            color: "#000",
+            color: "#FFF",
         });
+
+        // TEMP: Add a bomb
+        const a = this.player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+        const b = this.player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+        const bombA = this.bombs.create(a, 16, "bomb");
+        const bombB = this.bombs.create(b, 16, "bomb");
+        if (bombA) {
+            bombA.setBounce(1);
+            bombA.setCollideWorldBounds(true);
+            bombA.setVelocity(Phaser.Math.Between(-200, 200), 20);
+            bombA.allowGravity = false;
+        }
+        if (bombB) {
+            bombB.setBounce(1);
+            bombB.setCollideWorldBounds(true);
+            bombB.setVelocity(Phaser.Math.Between(-200, 200), 20);
+            bombB.allowGravity = false;
+        }
 
         //  Collide the player and the stars with the platforms
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.bombs, this.platforms);
+        this.physics.add.collider(this.bombs, this.bombs);
 
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
@@ -161,13 +197,21 @@ export class Game extends Scene {
                 return true;
             });
 
-            const x = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-            const bomb = this.bombs.create(x, 16, "bomb");
-            if (bomb) {
-                bomb.setBounce(1);
-                bomb.setCollideWorldBounds(true);
-                bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-                bomb.allowGravity = false;
+            const a = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+            const b = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+            const bombA = this.bombs.create(a, 16, "bomb");
+            const bombB = this.bombs.create(b, 16, "bomb");
+            if (bombA) {
+                bombA.setBounce(1);
+                bombA.setCollideWorldBounds(true);
+                bombA.setVelocity(Phaser.Math.Between(-200, 200), 20);
+                bombA.allowGravity = false;
+            }
+            if (bombB) {
+                bombB.setBounce(1);
+                bombB.setCollideWorldBounds(true);
+                bombB.setVelocity(Phaser.Math.Between(-200, 200), 20);
+                bombB.allowGravity = false;
             }
         }
     }
