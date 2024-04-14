@@ -19,6 +19,10 @@ export class Game extends Scene {
         super("Game");
     }
 
+    init() {
+        this.score = 0;
+    }
+
     create(): void {
         this.gameOver = false;
 
@@ -176,7 +180,7 @@ export class Game extends Scene {
         player.setTint(0xff0000);
         player.anims.play("turn");
         this.gameOver = true;
-        this.changeScene("GameOver");
+        this.changeScene("GameOver", this.score);
     }
 
     private collectStar(player: GameObjectWithBody | Tile, star: GameObjectWithBody | Tile): void {
@@ -216,9 +220,9 @@ export class Game extends Scene {
         }
     }
 
-    changeScene(scene?: string) {
+    changeScene(scene?: string, score?: number): void {
         if (scene) {
-            this.scene.start(scene);
+            this.scene.start(scene, { score });
         } else {
             this.scene.start("Boot");
         }
