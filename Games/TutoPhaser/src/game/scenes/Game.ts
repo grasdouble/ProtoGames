@@ -191,6 +191,7 @@ export class Game extends Scene {
         star.disableBody(true, true);
         this.score += 10;
         this.scoreText.setText("Score: " + this.score);
+        EventBus.emit("highscore", this);
 
         if (this.stars.countActive(true) === 0) {
             this.stars.children.iterate((child) => {
@@ -225,6 +226,12 @@ export class Game extends Scene {
             this.scene.start(scene, { score });
         } else {
             this.scene.start("Boot");
+        }
+    }
+
+    public updateHighScore(vueCallback: ({ highScore }: { highScore: number }) => void) {
+        if (vueCallback) {
+            vueCallback({ highScore: this.score });
         }
     }
 }
